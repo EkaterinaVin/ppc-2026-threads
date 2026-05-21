@@ -139,7 +139,7 @@ const std::array<TestType, 16> kTests = {{
     TestType{"volume_3d_0_05_x3", InType{0.005, {{0.0, 0.25}, {0.0, 0.25}, {0.0, 0.25}}, one},
              CountNDimArea({{0.0, 0.25}, {0.0, 0.25}, {0.0, 0.25}})},
 
-    TestType{"Linear1d_0_2", InType{0.005, {{0.0, 2.0}}, linear1d}, IntLinear1d(0.0, 2.0)},
+    TestType{"Linear1d_0_2", InType{0.002, {{0.0, 2.0}}, linear1d}, IntLinear1d(0.0, 2.0)},
 
     TestType{"x21d_0_1", InType{0.002, {{0.0, 1.0}}, x21d}, Intx21d(0.0, 1.0)},
 
@@ -147,7 +147,7 @@ const std::array<TestType, 16> kTests = {{
 
     TestType{"x41d_0_1", InType{0.002, {{0.0, 1.0}}, x41d}, Intx41d(0.0, 1.0)},
 
-    TestType{"exp1d_0_1", InType{0.002, {{0.0, 1.0}}, exp1d}, IntExp1d(0.0, 1.0)},
+    TestType{"exp1d_0_1", InType{0.001, {{0.0, 1.0}}, exp1d}, IntExp1d(0.0, 1.0)},
 
     TestType{"cos1d_0_pi2", InType{0.001, {{0.0, std::numbers::pi / 2.0}}, cos1d},
              Intcos1d(0.0, std::numbers::pi / 2.0)},
@@ -156,7 +156,7 @@ const std::array<TestType, 16> kTests = {{
 
     TestType{"xy2d_0_1_x_0_1", InType{0.005, {{0.0, 1.0}, {0.0, 1.0}}, xy2d}, Intxy2d(0.0, 1.0, 0.0, 1.0)},
 
-    TestType{"x_plus_y2d_0_1_x_0_1", InType{0.002, {{0.0, 1.0}, {0.0, 1.0}}, x_plus_y2d},
+    TestType{"x_plus_y2d_0_1_x_0_1", InType{0.001, {{0.0, 1.0}, {0.0, 1.0}}, x_plus_y2d},
              IntxPlusy2d(0.0, 1.0, 0.0, 1.0)},
 
     TestType{"x2_y2d_0_1_x_0_1", InType{0.005, {{0.0, 1.0}, {0.0, 1.0}}, x2_y2d}, Intx2y2d(0.0, 1.0, 0.0, 1.0)},
