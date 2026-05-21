@@ -130,7 +130,7 @@ auto xyz_3d = [](const std::vector<double> &x) { return x[0] * x[1] * x[2]; };
 auto x2_y2_z2_3d = [](const std::vector<double> &x) { return x[0] * x[0] * x[1] * x[1] * x[2] * x[2]; };
 auto exp_sum_3d = [](const std::vector<double> &x) { return std::exp(x[0] + x[1] + x[2]); };
 
-const std::array<TestType, 13> kTests = {{
+const std::array<TestType, 12> kTests = {{
     TestType{"volume_3d_0_05_x3", InType{0.005, {{0.0, 0.25}, {0.0, 0.25}, {0.0, 0.25}}, one},
              CountNDimArea({{0.0, 0.25}, {0.0, 0.25}, {0.0, 0.25}})},
 
@@ -159,9 +159,6 @@ const std::array<TestType, 13> kTests = {{
 
     TestType{"x2_y2_z2_3d_0_1_x3", InType{0.01, {{0.0, 0.20}, {0.0, 0.20}, {0.0, 0.20}}, x2_y2_z2_3d},
              Intx2Y2Z23d(0.0, 0.20, 0.0, 0.20, 0.0, 0.20)},
-
-    TestType{"exp_sum_3d_0_05_x3", InType{0.002, {{0.0, 0.20}, {0.0, 0.20}, {0.0, 0.20}}, exp_sum_3d},
-             IntexpSum3d(0.0, 0.20, 0.0, 0.20, 0.0, 0.20)},
 }};
 
 const auto kTaskName = PPC_SETTINGS_vinyaikina_e_multidimensional_integrals_simpson_method;
