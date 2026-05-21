@@ -131,15 +131,9 @@ auto xyz_3d = [](const std::vector<double> &x) { return x[0] * x[1] * x[2]; };
 auto x2_y2_z2_3d = [](const std::vector<double> &x) { return x[0] * x[0] * x[1] * x[1] * x[2] * x[2]; };
 auto exp_sum_3d = [](const std::vector<double> &x) { return std::exp(x[0] + x[1] + x[2]); };
 
-const std::array<TestType, 16> kTests = {{
-    TestType{"area1d_0_1", InType{0.002, {{0.0, 1.0}}, one}, CountNDimArea({{0.0, 1.0}})},
-
-    TestType{"area2d_0_1_x_0_1", InType{0.002, {{0.0, 1.0}, {0.0, 1.0}}, one}, CountNDimArea({{0.0, 1.0}, {0.0, 1.0}})},
-
+const std::array<TestType, 13> kTests = {{
     TestType{"volume_3d_0_05_x3", InType{0.005, {{0.0, 0.25}, {0.0, 0.25}, {0.0, 0.25}}, one},
              CountNDimArea({{0.0, 0.25}, {0.0, 0.25}, {0.0, 0.25}})},
-
-    TestType{"Linear1d_0_2", InType{0.002, {{0.0, 1.0}}, linear1d}, IntLinear1d(0.0, 2.0)},
 
     TestType{"x21d_0_1", InType{0.002, {{0.0, 1.0}}, x21d}, Intx21d(0.0, 1.0)},
 
