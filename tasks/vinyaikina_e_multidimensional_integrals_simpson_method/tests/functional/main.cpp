@@ -110,10 +110,6 @@ double Intx2Y2Z23d(double a1, double b1, double a2, double b2, double a3, double
   return Intx21d(a1, b1) * Intx21d(a2, b2) * Intx21d(a3, b3);
 }
 
-double IntexpSum3d(double a1, double b1, double a2, double b2, double a3, double b3) {
-  return IntExp1d(a1, b1) * IntExp1d(a2, b2) * IntExp1d(a3, b3);
-}
-
 auto one = [](const std::vector<double> &) { return 1.0; };
 auto sin1d = [](const std::vector<double> &x) { return std::sin(x[0]); };
 auto x21d = [](const std::vector<double> &x) { return x[0] * x[0]; };
@@ -128,7 +124,6 @@ auto x2_y2d = [](const std::vector<double> &x) { return x[0] * x[0] * x[1]; };
 
 auto xyz_3d = [](const std::vector<double> &x) { return x[0] * x[1] * x[2]; };
 auto x2_y2_z2_3d = [](const std::vector<double> &x) { return x[0] * x[0] * x[1] * x[1] * x[2] * x[2]; };
-auto exp_sum_3d = [](const std::vector<double> &x) { return std::exp(x[0] + x[1] + x[2]); };
 
 const std::array<TestType, 12> kTests = {{
     TestType{"volume_3d_0_05_x3", InType{0.005, {{0.0, 0.25}, {0.0, 0.25}, {0.0, 0.25}}, one},
