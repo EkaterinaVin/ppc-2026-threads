@@ -119,7 +119,6 @@ bool VinyaikinaEMultidimIntegrSimpsonALL::RunImpl() {
     simpson_factor *= actual_step[i] / 3.0;
   }
 
-  // MPI decomposition of the first dimension
   int mpi_rank, mpi_size;
   MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
   MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);

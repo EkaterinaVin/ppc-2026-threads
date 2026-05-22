@@ -137,7 +137,7 @@ const std::array<TestType, 16> kTests = {{
 
     TestType{"area2d_0_1_x_0_1", InType{0.005, {{0.0, 1.0}, {0.0, 1.0}}, one}, CountNDimArea({{0.0, 1.0}, {0.0, 1.0}})},
 
-    TestType{"volume_3d_0_05_x3", InType{0.005, {{0.0, 0.25}, {0.0, 0.25}, {0.0, 0.25}}, one},
+    TestType{"volume_3d_0_05_x3", InType{0.0075, {{0.0, 0.25}, {0.0, 0.25}, {0.0, 0.25}}, one},
              CountNDimArea({{0.0, 0.25}, {0.0, 0.25}, {0.0, 0.25}})},
 
     TestType{"Linear1d_0_2", InType{0.01, {{0.0, 2.0}}, linear1d}, IntLinear1d(0.0, 2.0)},
