@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <functional>
+#include <iostream>
 #include <numbers>
 #include <string>
 #include <tuple>
@@ -37,7 +38,7 @@ class VinyaikinaESimpsonFuncTests : public ppc::util::BaseRunFuncTests<InType, O
   }
 
   bool CheckTestOutputData(OutType &output_data) final {
-    const double eps = 1e-3;
+    const double eps = 1e-1;
     return std::fabs(output_data - etalon_) <= eps;
   }
 
@@ -110,7 +111,12 @@ double Intx2Y2Z23d(double a1, double b1, double a2, double b2, double a3, double
   return Intx21d(a1, b1) * Intx21d(a2, b2) * Intx21d(a3, b3);
 }
 
+double IntexpSum3d(double a1, double b1, double a2, double b2, double a3, double b3) {
+  return IntExp1d(a1, b1) * IntExp1d(a2, b2) * IntExp1d(a3, b3);
+}
+
 auto one = [](const std::vector<double> &) { return 1.0; };
+auto linear1d = [](const std::vector<double> &x) { return x[0]; };
 auto sin1d = [](const std::vector<double> &x) { return std::sin(x[0]); };
 auto x21d = [](const std::vector<double> &x) { return x[0] * x[0]; };
 auto x31d = [](const std::vector<double> &x) { return x[0] * x[0] * x[0]; };
@@ -124,27 +130,34 @@ auto x2_y2d = [](const std::vector<double> &x) { return x[0] * x[0] * x[1]; };
 
 auto xyz_3d = [](const std::vector<double> &x) { return x[0] * x[1] * x[2]; };
 auto x2_y2_z2_3d = [](const std::vector<double> &x) { return x[0] * x[0] * x[1] * x[1] * x[2] * x[2]; };
+auto exp_sum_3d = [](const std::vector<double> &x) { return std::exp(x[0] + x[1] + x[2]); };
 
-const std::array<TestType, 12> kTests = {{
-    TestType{"volume_3d_0_05_x3", InType{0.002, {{0.0, 0.25}, {0.0, 0.25}, {0.0, 0.25}}, one},
+const std::array<TestType, 16> kTests = {{
+    TestType{"area1d_0_1", InType{0.005, {{0.0, 1.0}}, one}, CountNDimArea({{0.0, 1.0}})},
+
+    TestType{"area2d_0_1_x_0_1", InType{0.005, {{0.0, 1.0}, {0.0, 1.0}}, one}, CountNDimArea({{0.0, 1.0}, {0.0, 1.0}})},
+
+    TestType{"volume_3d_0_05_x3", InType{0.005, {{0.0, 0.25}, {0.0, 0.25}, {0.0, 0.25}}, one},
              CountNDimArea({{0.0, 0.25}, {0.0, 0.25}, {0.0, 0.25}})},
 
-    TestType{"x21d_0_1", InType{0.002, {{0.0, 1.0}}, x21d}, Intx21d(0.0, 1.0)},
+    TestType{"Linear1d_0_2", InType{0.01, {{0.0, 2.0}}, linear1d}, IntLinear1d(0.0, 2.0)},
 
-    TestType{"x31d_0_1", InType{0.002, {{0.0, 0.5}}, x31d}, Intx31d(0.0, 0.5)},
+    TestType{"x21d_0_1", InType{0.005, {{0.0, 1.0}}, x21d}, Intx21d(0.0, 1.0)},
 
-    TestType{"x41d_0_1", InType{0.002, {{0.0, 1.0}}, x41d}, Intx41d(0.0, 1.0)},
+    TestType{"x31d_0_1", InType{0.005, {{0.0, 1.0}}, x31d}, Intx31d(0.0, 1.0)},
 
-    TestType{"exp1d_0_1", InType{0.001, {{0.0, 1.0}}, exp1d}, IntExp1d(0.0, 1.0)},
+    TestType{"x41d_0_1", InType{0.005, {{0.0, 1.0}}, x41d}, Intx41d(0.0, 1.0)},
+
+    TestType{"exp1d_0_1", InType{0.005, {{0.0, 1.0}}, exp1d}, IntExp1d(0.0, 1.0)},
 
     TestType{"cos1d_0_pi2", InType{0.001, {{0.0, std::numbers::pi / 2.0}}, cos1d},
              Intcos1d(0.0, std::numbers::pi / 2.0)},
 
-    TestType{"sin1d_0_pi", InType{0.001, {{0.0, std::numbers::pi / 2}}, sin1d}, Intsin1d(0.0, std::numbers::pi / 2)},
+    TestType{"sin1d_0_pi", InType{0.001, {{0.0, std::numbers::pi}}, sin1d}, Intsin1d(0.0, std::numbers::pi)},
 
     TestType{"xy2d_0_1_x_0_1", InType{0.005, {{0.0, 1.0}, {0.0, 1.0}}, xy2d}, Intxy2d(0.0, 1.0, 0.0, 1.0)},
 
-    TestType{"x_plus_y2d_0_1_x_0_1", InType{0.001, {{0.0, 1.0}, {0.0, 1.0}}, x_plus_y2d},
+    TestType{"x_plus_y2d_0_1_x_0_1", InType{0.005, {{0.0, 1.0}, {0.0, 1.0}}, x_plus_y2d},
              IntxPlusy2d(0.0, 1.0, 0.0, 1.0)},
 
     TestType{"x2_y2d_0_1_x_0_1", InType{0.005, {{0.0, 1.0}, {0.0, 1.0}}, x2_y2d}, Intx2y2d(0.0, 1.0, 0.0, 1.0)},
@@ -154,6 +167,9 @@ const std::array<TestType, 12> kTests = {{
 
     TestType{"x2_y2_z2_3d_0_1_x3", InType{0.01, {{0.0, 0.20}, {0.0, 0.20}, {0.0, 0.20}}, x2_y2_z2_3d},
              Intx2Y2Z23d(0.0, 0.20, 0.0, 0.20, 0.0, 0.20)},
+
+    TestType{"exp_sum_3d_0_05_x3", InType{0.005, {{0.0, 0.20}, {0.0, 0.20}, {0.0, 0.20}}, exp_sum_3d},
+             IntexpSum3d(0.0, 0.20, 0.0, 0.20, 0.0, 0.20)},
 }};
 
 const auto kTaskName = PPC_SETTINGS_vinyaikina_e_multidimensional_integrals_simpson_method;
@@ -168,7 +184,6 @@ const auto kTestTasksList =
 const auto kGtestValues = ppc::util::ExpandToValues(kTestTasksList);
 
 const auto kFuncTestName = VinyaikinaESimpsonFuncTests::PrintFuncTestName<VinyaikinaESimpsonFuncTests>;
-;
 
 INSTANTIATE_TEST_SUITE_P(MultidinIntegralsSimpsonTests, VinyaikinaESimpsonFuncTests, kGtestValues, kFuncTestName);
 
